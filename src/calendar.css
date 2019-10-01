@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+}
+.popover {
+  z-index: 10000;
+  position: relative;
+  overflow: visible;
+}
+.rbc-month-row, .rbc-event-content {
+  overflow: visible;
+}
+.rbc-row-segment {
+  position: relative;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.rbc-toolbar button{
+  border-radius: 2%;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

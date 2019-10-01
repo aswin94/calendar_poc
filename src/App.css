@@ -1,22 +1,357 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.App-link {
-  color: #09d3ac;
+.container .sidepanel .add-new-card {
+  display: flex;
+    flex-direction: column;
+    flex: 0 0 0px;
+    justify-content: end;
+    padding:20px 15px;
+    border-bottom: solid 1px #e1e1e1;
+}
+
+
+.container .sidepanel .add-new-card a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #000000;
+}
+
+.container .sidepanel .add-new-card a span {
+  width: 40px;
+  height: 40px;
+  background-color: #0173C7;
+  border-radius: 6px;
+  font-size: 24px;
+  color: #fff;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  vertical-align: middle;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .sidepanel .navigation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 0px;
+          flex: 1 1 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .sidepanel .navigation ul {
+  margin: 0;
+  padding: 0px 0px;
+  background-color: #F9F9F9;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.container .sidepanel .navigation ul li {
+  list-style: none;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 8px 25px;
+}
+
+.container .sidepanel .navigation ul li.active, .container .sidepanel .navigation ul li:hover {
+  background-color: #0173C7;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+}
+
+.container .sidepanel .navigation ul li.active a, .container .sidepanel .navigation ul li:hover a {
+  color: #fff;
+}
+
+.container .sidepanel .navigation ul li:hover {
+  background-color: #e1e1e1;
+}
+
+.container .sidepanel .navigation ul li:hover a {
+  color: #666;
+}
+
+.container .sidepanel .navigation ul li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #666;
+}
+
+.container .sidepanel {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 300px;
+          flex: 0 0 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 300px;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  border-right: solid 1px #e1e1e1;
+  padding: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow-x: auto;
+}
+.container .sidepanel .flter-by {
+  padding: 15px;
+}
+
+.container .sidepanel h2 {
+  font-size: 16px;
+  border-bottom: solid 1px #e1e1e1;
+  padding: 0px 0 8px 0;
+  margin: 0px 0 7px 0;
+  font-weight: 500;
+}
+
+.container .sidepanel .filter-checkbox {
+  margin-bottom: 12px;
+}
+
+.container .sidepanel label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 16px;
+}
+
+.container .sidepanel label input {
+  margin: 7px 10px 7px 0px;
+}
+
+.container .sidepanel .month {
+  padding:15px;
+}
+
+.container .sidepanel .month h3 {
+  font-size: 16px;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.container .sidepanel .month .calendar {
+  margin-bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+          border-bottom: solid 1px #e1e1e1;
+          padding: 15px 0;
+}
+.container .sidepanel .month .calendar:last-child{
+  border: 0;
+}
+
+.container .sidepanel .month .calendar ul {
+  margin: 0;
+  padding: 0;
+}
+
+.container .sidepanel .month .calendar li {
+  float: left;
+  display: block;
+  width: 14%;
+  text-align: center;
+  list-style-type: none;
+  padding: 7px 0;
+}
+
+.container .sidepanel .month .calendar li:hover, .container .sidepanel .month .calendar li.active {
+  background-color: #0173C7;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.container .sidepanel .month .calendar li.past {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.container .sidepanel .month .calendar li.cal-header {
+  border-bottom: dashed 1px #e1e1e1;
+}
+
+.container .sidepanel .month .calendar li.cal-header:hover {
+  background-color: transparent;
+}
+
+.container .sidepanel .month .calendar li:nth-child(n+1):nth-child(-n+7) {
+  font-weight: 400;
+  color: #000000;
+  font-size: 15px;
+}
+
+.container .main {
+  width: calc(100% - 300px);
+  background-color: #f9f9f9;
+  position: fixed;
+  left: 300px;
+  top: 0;
+  height: 100vh;
+  /* padding: 20px; */
+}
+
+.container .main .calendar-detail {
+  width: 100%;
+  border: solid 1px #e1e1e1;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  background-color: #fff;
+  height: 100%;
+}
+
+.container .main .calendar-detail table {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  font-family: 'Ubuntu';
+  /*border-collapse: collapse;*/
+  border-spacing: 0;
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.container .main .calendar-detail th,
+.container .main .calendar-detail td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.container .main .calendar-detail th {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0px 0;
+  color: #000;
+  background-color: rgba(1, 115, 199, 0.22);
+  height: 20px;
+  text-align: left;
+  padding-left: 15px;
+}
+
+.container .main .calendar-detail td {
+  width: 14.285%;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  font-size: 14px;
+  color: #000;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 15px;
+  vertical-align: initial;
+  height: 75px;
+  border: solid 1px #efefef;
+}
+
+.container .main .calendar-detail .day:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.container .main .calendar-detail .today {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.rbc-toolbar{
+  background: #fff;
+  padding: 20px 15px;
+  border-bottom: solid 1px #e1e1e1;
+  margin-bottom: 0px !important;
+}
+.rbc-month-view{
+  padding: 0px;
+  background: #fff;
+}
+.rbc-header{
+  padding: 8px 0 !important;
+  background: #70b6f161;
+}
+
+.rbc-toolbar button{
+  background: #efefef !important;
+  border: 0 !important;
+  padding: 10px 20px !important;
+  border-radius: 20px !important;
+}
+.rbc-btn-group > button:first-child:not(:last-child){
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.rbc-btn-group > button:not(:first-child):not(:last-child){
+  border-radius: 0 !important;
+}
+.rbc-btn-group > button:last-child:not(:first-child){
+  border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.rbc-toolbar button:active, .rbc-toolbar button.rbc-active{
+  background: #0173C7 !important;
+  color: #ffffff;
+}
+.rbc-toolbar button:active:hover, .rbc-toolbar button:active:focus, .rbc-toolbar button.rbc-active:hover, .rbc-toolbar button.rbc-active:focus{
+  color: #ffffff !important;
+}
+
+.modal-header{
+  background: #0173C7 !important;
+  color: #ffffff;
+}
+.modal-header .close{
+  color: #fff;
+  opacity: 1;
 }
