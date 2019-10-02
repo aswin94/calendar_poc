@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer }  from 'react-big-calendar';
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 // import Modal from './popover';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 
 import './calendar.css';
@@ -19,32 +19,57 @@ class calendar extends Component {
       {
         start: new Date(),
         end: new Date(),
-        title: "Some serious works"
+        title: "JC22522",
+        heading: "Pavement Restoration",
+        details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        teamId: '11AD45GH',
+        teamLead: 'John Maxwell',
+
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "Some serious works1"
+        title: "JC22523",
+        heading: "Pavement Building",
+        details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        teamId: '11AD45GH',
+        teamLead: 'Chris Johns',
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "Some serious works2"
+        title: "JC22524",
+        heading: "Pavement Structuring",
+        details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        teamId: '11AD45GH',
+        teamLead: 'Varghese Maxwell',
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "Some serious works3"
+        title: "JC22525",
+        heading: "Pathway Restoration",
+        details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        teamId: '11AD45GH',
+        teamLead: 'John Varghese',
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "Some serious works4"
+        title: "JC22526",
+        heading: "Building Restoration",
+        details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        teamId: '11AD45GH',
+        teamLead: 'David Maxwell',
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "Some serious works5"
+        title: "JC22527",
+        heading: "Pavement Restoration",
+        details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        teamId: '11AD45GH',
+        teamLead: 'John David',
       }
     ],
     modal: false,
@@ -152,15 +177,33 @@ toggle = () => {
             onSelectEvent={event => this.onSelectEvent(event)}
         />
             <Modal isOpen={this.state.modal} className={this.props.className}>
-                <ModalHeader toggle={this.toggle}>{selectedEvent.title}</ModalHeader>
+                <ModalHeader toggle={this.toggle}>{selectedEvent.heading}</ModalHeader>
                 <ModalBody>
-                    {/* StartDate: {selectedEvent.start}<br/>
-                    EndDate: {selectedEvent.end} */}
+                    <div>
+                      <p style={{color: '#8888', marginBottom:0}}>Job Description</p>
+                      <p style={{paddingBottom: '2%',borderBottom: '2px dashed #efefef'}}>{selectedEvent.details}</p>
+                    </div>
+                    <div style={{display:'flex', borderBottom:'2px dashed #efefef', marginBottom:'2%'}}>
+                      <div style={{flex:1}}>
+                        <p style={{color: '#8888', marginBottom:0}}>Scheduled Date</p>
+                        <p style={{color: '#0173C7'}}>12/08/2019</p>
+                      </div>
+                      <div style={{flex:1}}>
+                        <p style={{color: '#8888', marginBottom:0}}>To be completed by</p>
+                        <p style={{color: '#0173C7'}}>20/08/2019</p>
+                      </div>
+                    </div>
+                    <div style={{display:'flex'}}>
+                      <div style={{flex:1}}>
+                          <p style={{color: '#8888', marginBottom:0}}>Team Id</p>
+                          <p style={{color: '#0173C7'}}>{selectedEvent.teamId}</p>
+                      </div>
+                      <div style={{flex:1}}>
+                          <p style={{color: '#8888', marginBottom:0}}>Team Lead</p>
+                          <p style={{color: '#0173C7'}}>{selectedEvent.teamLead}</p>
+                      </div>
+                    </div>
                 </ModalBody>
-                <ModalFooter>
-                    <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                </ModalFooter>
             </Modal>
       </div>
     );
