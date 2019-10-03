@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Cal from './calendar';
+import Calpop from './calendarPop';
 
 function App() {
   return (
@@ -140,7 +141,7 @@ function App() {
             </div>
         </div>
         <div className="main">
-            <Cal />
+            <Calpop />
         </div>
       </div>
   );

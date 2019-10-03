@@ -10,6 +10,8 @@
     "react-big-calendar": "^0.22.1",
     "react-dom": "^16.10.1",
     "react-scripts": "3.1.2",
+    "react-tiny-popover": "^3.4.5",
+    "react-tooltip": "^3.11.1",
     "reactstrap": "^8.0.1"
   },
   "scripts": {
