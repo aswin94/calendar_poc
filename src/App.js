@@ -1,9 +1,40 @@
 import React from 'react';
 import './App.css';
+import moment from "moment";
 import Cal from './calendar';
-import Calpop from './calendarPop';
+// import Calpop from './calendarPop';
+// import CalTest from './testCal';
 
 function App() {
+    const currMonthName  = moment().format('MMMM YYYY');
+    const nextMonthName  = moment().add(1, "month").format('MMMM YYYY');
+
+
+    let calendar = [];
+    let nextMonthcalendar = [];
+    const startDay = moment().clone().startOf('month').startOf('week');
+    const endDay = moment().clone().endOf('month').endOf('week');
+    const nextMonthStart = moment().clone().startOf('month').startOf('week').add(1, "month");
+    const nextMonthEnd = moment().clone().endOf('month').endOf('week').add(1, "month");
+
+    let date = startDay.clone().subtract(1, 'day');
+    let nextMonthdate = nextMonthStart.clone().subtract(1, 'day');
+
+
+    while (date.isBefore(endDay, 'day')) {
+        calendar.push({
+            days: Array(7).fill(0).map(() => date.add(1, 'day').clone())
+        })
+    }
+    while (nextMonthdate.isBefore(nextMonthEnd, 'day')) {
+        nextMonthcalendar.push({
+            nextMonthdays: Array(7).fill(0).map(() => nextMonthdate.add(1, 'day').clone())
+        })
+    }
+
+    console.log(calendar, "calendar");
+    console.log(nextMonthcalendar, "nextMonthcalendar");
+
   return (
     <div className="container">
          {/* <div className="header">
@@ -28,16 +59,16 @@ function App() {
                         <input type="checkbox" name="checkbox1" value="checkbox1" />
                         Location
                     </label>
-                    <label htmlFor="checkbox1">
-                        <input type="checkbox" name="checkbox1" value="checkbox1" />
+                    <label htmlFor="checkbox2">
+                        <input type="checkbox" name="checkbox2" value="checkbox2" />
                         Job Type
                     </label>
-                    <label htmlFor="checkbox1">
-                        <input type="checkbox" name="checkbox1" value="checkbox1" />
+                    <label htmlFor="checkbox3">
+                        <input type="checkbox" name="checkbox3" value="checkbox3" />
                         Team ID
                     </label>
-                    <label htmlFor="checkbox1">
-                        <input type="checkbox" name="checkbox1" value="checkbox1" />
+                    <label htmlFor="checkbox4">
+                        <input type="checkbox" name="checkbox4" value="checkbox4" />
                         Job Number
                     </label>
                 </div>
@@ -45,7 +76,7 @@ function App() {
             <div className="month">
                 <h2>Month</h2>
                 <div className="calendar">
-                    <h3>September 2019</h3>
+                    <h3>{currMonthName}</h3>
                     <ul>
                         <li className="cal-header">Sun</li>
                         <li className="cal-header">Mon</li>
@@ -54,45 +85,25 @@ function App() {
                         <li className="cal-header">Thu</li>
                         <li className="cal-header">Fri</li>
                         <li className="cal-header">Sat</li>
-                        <li className="past">1</li>
-                        <li className="past">2</li>
-                        <li className="past">3</li>
-                        <li className="past">4</li>
-                        <li className="past">5</li>
-                        <li>6</li>
-                        <li>7</li>
-                        <li>8</li>
-                        <li>9</li>
-                        <li>10</li>
-                        <li>11</li>
-                        <li>12</li>
-                        <li>13</li>
-                        <li>14</li>
-                        <li>15</li>
-                        <li>16</li>
-                        <li>17</li>
-                        <li>18</li>
-                        <li>19</li>
-                        <li>20</li>
-                        <li>21</li>
-                        <li>22</li>
-                        <li>23</li>
-                        <li>24</li>
-                        <li>25</li>
-                        <li className="active">26</li>
-                        <li>27</li>
-                        <li>28</li>
-                        <li>29</li>
-                        <li>30</li>
-                        <li>31</li>
-                        <li>1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li>4</li>
                     </ul>
+                    {calendar && calendar.map((week, key)=>{
+                        return(
+                            <>
+                            <ul>
+                            {week.days.map((day, keyD)=>{
+                                return (
+                                    <li className={moment().format('L')===day.format('L')?'active':
+                                        moment().format('MMM')!==day.format('MMM')?'past':null
+                                        } key={keyD}>{day.format('D')}</li>
+                                )
+                            })}
+                            </ul>
+                            </>
+                        )
+                    })}
                 </div>
                 <div className="calendar">
-                    <h3>October 2019</h3>
+                    <h3>{nextMonthName}</h3>
                     <ul>
                         <li className="cal-header">Sun</li>
                         <li className="cal-header">Mon</li>
@@ -101,47 +112,25 @@ function App() {
                         <li className="cal-header">Thu</li>
                         <li className="cal-header">Fri</li>
                         <li className="cal-header">Sat</li>
-                        <li className="past">1</li>
-                        <li className="past">2</li>
-                        <li className="past">3</li>
-                        <li className="past">4</li>
-                        <li className="past">5</li>
-                        <li>6</li>
-                        <li>7</li>
-                        <li>8</li>
-                        <li>9</li>
-                        <li>10</li>
-                        <li>11</li>
-                        <li>12</li>
-                        <li>13</li>
-                        <li>14</li>
-                        <li>15</li>
-                        <li>16</li>
-                        <li>17</li>
-                        <li>18</li>
-                        <li>19</li>
-                        <li>20</li>
-                        <li>21</li>
-                        <li>22</li>
-                        <li>23</li>
-                        <li>24</li>
-                        <li>25</li>
-                        <li>26</li>
-                        <li>27</li>
-                        <li>28</li>
-                        <li>29</li>
-                        <li>30</li>
-                        <li>31</li>
-                        <li>1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li>4</li>
                     </ul>
+                    {nextMonthcalendar && nextMonthcalendar.map((week, key)=>{
+                        return(
+                            <>
+                            <ul>
+                            {week.nextMonthdays.map((day, keyD)=>{
+                                return (
+                                    <li className={moment().add(1, "month").format('MMM')!==day.format('MMM')?'past':null} key={keyD}>{day.format('D')}</li>
+                                )
+                            })}
+                            </ul>
+                            </>
+                        )
+                    })}
                 </div>
             </div>
         </div>
         <div className="main">
-            <Calpop />
+            <Cal />
         </div>
       </div>
   );

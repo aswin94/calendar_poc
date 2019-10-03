@@ -170,6 +170,8 @@ toggle = () => {
           resizable
           style={{ height: "100vh" }}
           selectable
+          popup
+          popupOffset={30}
             onEventDrop={this.moveEvent}
             onEventResize={this.resizeEvent}
             onSelectSlot={this.newEvent}

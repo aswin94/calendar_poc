@@ -205,17 +205,18 @@
 }
 
 .container .sidepanel .month .calendar li:hover, .container .sidepanel .month .calendar li.active {
-  background-color: #0173C7;
-  border-radius: 50%;
-  color: #fff;
+  background-color: #0173C7 !important;
+  border-radius: 50% !important;
+  color: #fff !important;
 }
 
 .container .sidepanel .month .calendar li.past {
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .container .sidepanel .month .calendar li.cal-header {
   border-bottom: dashed 1px #e1e1e1;
+  margin-bottom: 2%;
 }
 
 .container .sidepanel .month .calendar li.cal-header:hover {
@@ -369,4 +370,10 @@
 .modal-header .close{
   color: #fff;
   opacity: 1;
+}
+.rbc-month-row, .rbc-event-content {
+  overflow: visible;
+}
+.rbc-row-segment {
+  position: relative;
 }

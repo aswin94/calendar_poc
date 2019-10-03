@@ -6,7 +6,7 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 // import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 // import Popover from 'react-tiny-popover'
 // import ReactTooltip from 'react-tooltip'
-
+import {Popover, OverlayTrigger} from 'react-bootstrap';
 
 
 
@@ -16,6 +16,16 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
+
+const popover = (
+  <Popover id="popover-basic">
+    <Popover.Title as="h3">Popover right</Popover.Title>
+    <Popover.Content>
+      And here's some <strong>amazing</strong> content. It's very engaging.
+      right?
+    </Popover.Content>
+  </Popover>
+);
 
 class calendarPop extends Component {
   state = {
@@ -97,7 +107,7 @@ toggle = () => {
       modal: !prevState.modal
     }));
 }
-// function Event({ event }) {
+// Event({ event }){
 //     return (
 //       <span>
 //         <strong>{event.title}</strong>
@@ -160,19 +170,25 @@ toggle = () => {
     // })
   }
 
-  onSelectEvent = (event) => {
-    const { isPopoverOpen } = this.state
-
+  onSelectEvent = ({event}) => {
     // const idx = events.indexOf(event);
     console.log(event, 'event');
-    this.setState({selectedEvent: event, isPopoverOpen: !isPopoverOpen});
+    this.setState({selectedEvent: event}, ()=> {
+      return(
+        <span>
+          <strong>HAi</strong>
+          test
+        </span>
+      )
+    });
     // this.toggle();
   }
 
   render() {
-    const {selectedEvent, isPopoverOpen} = this.state;
+    // const {selectedEvent, isPopoverOpen} = this.state;
     return (
       <div className="App">
+        <OverlayTrigger trigger="click" rootClose container={this} placement="right" overlay={popover}>
             <DnDCalendar
             defaultDate={new Date()}
             defaultView="month"
@@ -187,11 +203,12 @@ toggle = () => {
                 onEventResize={this.resizeEvent}
                 onSelectSlot={this.newEvent}
                 onDragStart={console.log}
-                // onSelectEvent={event => this.onSelectEvent(event)}
-                components = {{
-                    event: Event,
-                }}
+                // onSelectEvent={event => this.onSelectEvent({event})}
+                  // components = {{
+                  //   event: Event,
+                  // }}
             />
+        </OverlayTrigger>
     
             {/* <Modal isOpen={this.state.modal} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>{selectedEvent.heading}</ModalHeader>
