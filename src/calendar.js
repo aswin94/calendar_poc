@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer }  from 'react-big-calendar';
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 // import Modal from './popover';
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, Alert, Form, FormGroup, Label, Input, } from 'reactstrap';
 
 
 import './calendar.css';
@@ -74,6 +74,14 @@ class calendar extends Component {
     ],
     modal: false,
     selectedEvent: {},
+    editModal: false,
+    data: {},
+    jobTitle: '',
+    jobName: '',
+    jobDesc: '',
+    teamId: '',
+    teamLead: '',
+
   };
 
 //   onEventResize = (type, { event, start, end, allDay }) => {
@@ -91,6 +99,11 @@ toggle = () => {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
+}
+editToggle = () => {
+  this.setState(prevState => ({
+    editModal: !prevState.editModal
+  }));
 }
   moveEvent = ({ event, start, end, allDay: droppedOnAllDaySlot }) => {
     const { events } = this.state
@@ -112,8 +125,11 @@ toggle = () => {
     this.setState({
       events: nextEvents,
     })
-
-    alert(`${event.title} was dropped onto ${updatedEvent.start}`)
+    return(
+      <Alert color="success">
+        {event.title} was dropped onto {updatedEvent.start}
+      </Alert>
+    );
   }
 
   resizeEvent = ({ event, start, end }) => {
@@ -132,7 +148,39 @@ toggle = () => {
     // alert(`${event.title} was resized to ${start}-${end}`)
   }
 
-  newEvent(event) {
+  newEvent = ({ start, end }) => {
+    const title = window.prompt('New Event name')
+    if (title)
+      this.setState({
+        events: [
+          ...this.state.events,
+          {
+            start,
+            end,
+            title,
+          },
+        ],
+      })
+    // const {editModal, data} = this.state;
+    // console.log(start, '-->', end, 'event');
+    // this.setState({editModal: !editModal})
+    // if(data){
+    //   console.log(data);
+    //   this.setState({
+    //     events: [
+    //       ...this.state.events,
+    //       {
+    //         start,
+    //         end,
+    //         title: data.title,
+    //         heading: data.heading,
+    //         details: data.details,
+    //         teamId: data.teamId,
+    //         teamLead: data.teamLead, 
+    //       }
+    //     ]
+    //   })
+    // }
     // let idList = this.state.events.map(a => a.id)
     // let newId = Math.max(...idList) + 1
     // let hour = {
@@ -145,6 +193,7 @@ toggle = () => {
     // this.setState({
     //   events: this.state.events.concat([hour]),
     // })
+
   }
 
   onSelectEvent = (event) => {
@@ -155,9 +204,14 @@ toggle = () => {
     this.setState({selectedEvent: event});
     this.toggle();
   }
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
   render() {
-    const {selectedEvent} = this.state;
+    const {selectedEvent, jobTitle, jobName, jobDesc, teamId, teamLead, data, events} = this.state;
+    console.log(data, 'data');
+    console.log(events, 'events');
     return (
       <div className="App">
         <DnDCalendar
@@ -205,6 +259,33 @@ toggle = () => {
                           <p style={{color: '#0173C7'}}>{selectedEvent.teamLead}</p>
                       </div>
                     </div>
+                </ModalBody>
+            </Modal>
+            <Modal isOpen={this.state.editModal} className={this.props.className}>
+                <ModalHeader toggle={this.editToggle}>Create a Job</ModalHeader>
+                <ModalBody>
+                    <Form>
+                    <FormGroup>
+                        <Label for="jobTitle">Job Title</Label>
+                        <Input type="text" name="jobTitle" id="jobTitle" value={jobTitle} onChange={this.onChange} />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="jobName">Job Name</Label>
+                        <Input type="text" name="jobName" id="jobName" value={jobName} onChange={this.onChange} />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="jobDesc">Job Description</Label>
+                        <Input type="text" name="jobDesc" id="jobDesc" value={jobDesc} onChange={this.onChange} />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="teamId">Team Id</Label>
+                        <Input type="text" name="teamId" id="teamId" value={teamId} onChange={this.onChange} />
+                      </FormGroup><FormGroup>
+                        <Label for="teamLead">Team Lead</Label>
+                        <Input type="text" name="teamLead" id="teamLead" value={teamLead} onChange={this.onChange} />
+                      </FormGroup>
+                      <button type="submit" className="btn btn-primary">Submit</button>
+                    </Form>
                 </ModalBody>
             </Modal>
       </div>

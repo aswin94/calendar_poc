@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import moment from "moment";
 import Cal from './calendar';
+import logo from './logo.jpg';
 // import Calpop from './calendarPop';
 // import CalTest from './testCal';
 
@@ -44,7 +45,10 @@ function App() {
             </div> 
         </div>*/}
         <div className="sidepanel">
-        <div className="add-new-card">
+            <div className="logo">
+                <img src={logo} alt="Logo" />
+            </div>
+            <div className="add-new-card">
                 <a href="#/"><span>+</span> Create New Job Card</a>
             </div>
             <div className="flter-by">
