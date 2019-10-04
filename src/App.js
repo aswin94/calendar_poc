@@ -9,13 +9,12 @@ function App() {
     const currMonthName  = moment().format('MMMM YYYY');
     const nextMonthName  = moment().add(1, "month").format('MMMM YYYY');
 
-
     let calendar = [];
     let nextMonthcalendar = [];
     const startDay = moment().clone().startOf('month').startOf('week');
     const endDay = moment().clone().endOf('month').endOf('week');
-    const nextMonthStart = moment().clone().startOf('month').startOf('week').add(1, "month");
-    const nextMonthEnd = moment().clone().endOf('month').endOf('week').add(1, "month");
+    const nextMonthStart = moment().clone().add(1, "month").startOf('month').startOf('week');
+    const nextMonthEnd = moment().clone().add(1, "month").endOf('month').endOf('week');
 
     let date = startDay.clone().subtract(1, 'day');
     let nextMonthdate = nextMonthStart.clone().subtract(1, 'day');
@@ -31,10 +30,6 @@ function App() {
             nextMonthdays: Array(7).fill(0).map(() => nextMonthdate.add(1, 'day').clone())
         })
     }
-
-    console.log(calendar, "calendar");
-    console.log(nextMonthcalendar, "nextMonthcalendar");
-
   return (
     <div className="container">
          {/* <div className="header">

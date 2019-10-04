@@ -204,7 +204,7 @@
   padding: 7px 0;
 }
 
-.container .sidepanel .month .calendar li:hover, .container .sidepanel .month .calendar li.active {
+.container .sidepanel .month .calendar li.active {
   background-color: #0173C7 !important;
   border-radius: 50% !important;
   color: #fff !important;
