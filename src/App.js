@@ -5,6 +5,7 @@ import Cal from './calendar';
 import logo from './logo.jpg';
 // import Calpop from './calendarPop';
 // import CalTest from './testCal';
+import {Label, Input, FormGroup} from 'reactstrap';
 
 function App() {
     const currMonthName  = moment().format('MMMM YYYY');
@@ -54,22 +55,31 @@ function App() {
             <div className="flter-by">
                 <h2>Filter By</h2>
                 <div className="filter-checkbox">
-                    <label htmlFor="checkbox1">
-                        <input type="checkbox" name="checkbox1" value="checkbox1" />
-                        Location
-                    </label>
-                    <label htmlFor="checkbox2">
-                        <input type="checkbox" name="checkbox2" value="checkbox2" />
-                        Job Type
-                    </label>
-                    <label htmlFor="checkbox3">
-                        <input type="checkbox" name="checkbox3" value="checkbox3" />
-                        Team ID
-                    </label>
-                    <label htmlFor="checkbox4">
-                        <input type="checkbox" name="checkbox4" value="checkbox4" />
-                        Job Number
-                    </label>
+                    <FormGroup>
+                        <Label htmlFor="exampleSelect">Location</Label>
+                        <Input type="select" name="select" id="exampleSelect">
+                            <option name="act">Australian Capital Territory</option>
+                            <option name="nsw">New South Wales</option>
+                            <option name="nt">Northern Territory</option>
+                            <option name="qld">Queensland</option>
+                            <option name="sa">South Australia</option>
+                            <option name="tas">Tasmania</option>
+                            <option name="vic">Victoria</option>
+                            <option name="wa">Western Australia</option>
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="jobType">Job Type</Label>
+                        <Input type="text" name="jobType" id="jobType"/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="teamId">Team Id</Label>
+                        <Input type="text" name="teamId" id="teamId"/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="jobNum">Job Number</Label>
+                        <Input type="text" name="jobNum" id="jobNum"/>
+                    </FormGroup>
                 </div>
             </div>
             <div className="month">
