@@ -3,7 +3,10 @@ import { Calendar, momentLocalizer }  from 'react-big-calendar';
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 // import Modal from './popover';
-import { Modal, ModalHeader, ModalBody, Alert, Form, FormGroup, Label, Input, } from 'reactstrap';
+import Alert from 'react-bootstrap/Alert'
+import { Modal, ModalHeader, ModalBody, 
+  // Form, FormGroup, Label, Input, 
+} from 'reactstrap';
 
 
 import './calendar.css';
@@ -19,57 +22,62 @@ class calendar extends Component {
       {
         start: new Date(),
         end: new Date(),
-        title: "JC22522",
+        title: "JC22522 - Pavement Restoration",
         heading: "Pavement Restoration",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         teamId: '11AD45GH',
         teamLead: 'John Maxwell',
-
+        fixed: true,
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "JC22523",
+        title: "JC22523 - Pavement Building",
         heading: "Pavement Building",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         teamId: '11AD45GH',
         teamLead: 'Chris Johns',
+        fixed: false,
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "JC22524",
+        title: "JC22524 - Pavement Structuring",
         heading: "Pavement Structuring",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         teamId: '11AD45GH',
         teamLead: 'Varghese Maxwell',
+        fixed: true,
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "JC22525",
+        title: "JC22525 - Pathway Restoration",
         heading: "Pathway Restoration",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         teamId: '11AD45GH',
         teamLead: 'John Varghese',
+        fixed: false,
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "JC22526",
+        title: "JC22526 - Building Restoration",
         heading: "Building Restoration",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         teamId: '11AD45GH',
         teamLead: 'David Maxwell',
+        fixed: false,
       },
       {
         start: new Date(),
         end: new Date(),
-        title: "JC22527",
+        title: "JC22527 - Pavement Restoration",
         heading: "Pavement Restoration",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         teamId: '11AD45GH',
         teamLead: 'John David',
+        fixed: false,
       }
     ],
     modal: false,
@@ -107,29 +115,35 @@ editToggle = () => {
 }
   moveEvent = ({ event, start, end, allDay: droppedOnAllDaySlot }) => {
     const { events } = this.state
-
-    const idx = events.indexOf(event)
-    let allDay = event.allDay
-
-    if (!event.allDay && droppedOnAllDaySlot) {
-      allDay = true
-    } else if (event.allDay && !droppedOnAllDaySlot) {
-      allDay = false
+    console.log(event, start, end, droppedOnAllDaySlot, 'data');
+    if(!event.fixed) {
+      const idx = events.indexOf(event)
+      let allDay = event.allDay
+  
+      if (!event.allDay && droppedOnAllDaySlot) {
+        allDay = true
+      } else if (event.allDay && !droppedOnAllDaySlot) {
+        allDay = false
+      }
+  
+      const updatedEvent = { ...event, start, end, allDay }
+  
+      const nextEvents = [...events]
+      nextEvents.splice(idx, 1, updatedEvent)
+  
+      this.setState({
+        events: nextEvents,
+      })
+      // return(
+      //   <Alert color="success">
+      //     {event.title} was dropped onto {updatedEvent.start}
+      //   </Alert>
+      // );
+      alert(`${event.title} was dropped onto ${updatedEvent.start}`);
+    } else {
+      alert(`${event.title} cant be moved, It's fixed.`);
     }
-
-    const updatedEvent = { ...event, start, end, allDay }
-
-    const nextEvents = [...events]
-    nextEvents.splice(idx, 1, updatedEvent)
-
-    this.setState({
-      events: nextEvents,
-    })
-    return(
-      <Alert color="success">
-        {event.title} was dropped onto {updatedEvent.start}
-      </Alert>
-    );
+    
   }
 
   resizeEvent = ({ event, start, end }) => {
@@ -149,7 +163,7 @@ editToggle = () => {
   }
 
   newEvent = ({ start, end }) => {
-    const title = window.prompt('New Event name')
+    const title = window.prompt('New Job card name')
     if (title)
       this.setState({
         events: [
@@ -193,6 +207,35 @@ editToggle = () => {
     // this.setState({
     //   events: this.state.events.concat([hour]),
     // })
+    // return(
+    //   <Modal isOpen={this.state.editModal} className={this.props.className}>
+    //             <ModalHeader toggle={this.editToggle}>Create a Job</ModalHeader>
+    //             <ModalBody>
+    //                 <Form>
+    //                 <FormGroup>
+    //                     <Label for="jobTitle">Job Title</Label>
+    //                     <Input type="text" name="jobTitle" id="jobTitle" value={jobTitle} onChange={this.onChange} />
+    //                   </FormGroup>
+    //                   <FormGroup>
+    //                     <Label for="jobName">Job Name</Label>
+    //                     <Input type="text" name="jobName" id="jobName" value={jobName} onChange={this.onChange} />
+    //                   </FormGroup>
+    //                   <FormGroup>
+    //                     <Label for="jobDesc">Job Description</Label>
+    //                     <Input type="text" name="jobDesc" id="jobDesc" value={jobDesc} onChange={this.onChange} />
+    //                   </FormGroup>
+    //                   <FormGroup>
+    //                     <Label for="teamId">Team Id</Label>
+    //                     <Input type="text" name="teamId" id="teamId" value={teamId} onChange={this.onChange} />
+    //                   </FormGroup><FormGroup>
+    //                     <Label for="teamLead">Team Lead</Label>
+    //                     <Input type="text" name="teamLead" id="teamLead" value={teamLead} onChange={this.onChange} />
+    //                   </FormGroup>
+    //                   <button type="submit" className="btn btn-primary">Submit</button>
+    //                 </Form>
+    //             </ModalBody>
+    //         </Modal>
+    // )
 
   }
 
@@ -200,7 +243,6 @@ editToggle = () => {
     // const { events } = this.state
 
     // const idx = events.indexOf(event);
-    console.log(event, 'event');
     this.setState({selectedEvent: event});
     this.toggle();
   }
@@ -209,12 +251,15 @@ editToggle = () => {
   }
 
   render() {
-    const {selectedEvent, jobTitle, jobName, jobDesc, teamId, teamLead, data, events} = this.state;
-    console.log(data, 'data');
-    console.log(events, 'events');
+    console.log(new Date(), 'new date');
+    console.log(moment().format(), 'new momdate');
+    const {selectedEvent, 
+      // jobTitle, jobName, jobDesc, teamId, teamLead, data, events
+    } = this.state;
     return (
       <div className="App">
         <DnDCalendar
+          culture='en-GB'
           defaultDate={new Date()}
           defaultView="month"
           events={this.state.events}
@@ -232,6 +277,9 @@ editToggle = () => {
             onDragStart={console.log}
             onSelectEvent={event => this.onSelectEvent(event)}
         />
+        <Alert variant={"success"}>
+          This is a alert—check it out!
+        </Alert>
             <Modal isOpen={this.state.modal} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>{selectedEvent.heading}</ModalHeader>
                 <ModalBody>
@@ -259,33 +307,6 @@ editToggle = () => {
                           <p style={{color: '#0173C7'}}>{selectedEvent.teamLead}</p>
                       </div>
                     </div>
-                </ModalBody>
-            </Modal>
-            <Modal isOpen={this.state.editModal} className={this.props.className}>
-                <ModalHeader toggle={this.editToggle}>Create a Job</ModalHeader>
-                <ModalBody>
-                    <Form>
-                    <FormGroup>
-                        <Label for="jobTitle">Job Title</Label>
-                        <Input type="text" name="jobTitle" id="jobTitle" value={jobTitle} onChange={this.onChange} />
-                      </FormGroup>
-                      <FormGroup>
-                        <Label for="jobName">Job Name</Label>
-                        <Input type="text" name="jobName" id="jobName" value={jobName} onChange={this.onChange} />
-                      </FormGroup>
-                      <FormGroup>
-                        <Label for="jobDesc">Job Description</Label>
-                        <Input type="text" name="jobDesc" id="jobDesc" value={jobDesc} onChange={this.onChange} />
-                      </FormGroup>
-                      <FormGroup>
-                        <Label for="teamId">Team Id</Label>
-                        <Input type="text" name="teamId" id="teamId" value={teamId} onChange={this.onChange} />
-                      </FormGroup><FormGroup>
-                        <Label for="teamLead">Team Lead</Label>
-                        <Input type="text" name="teamLead" id="teamLead" value={teamLead} onChange={this.onChange} />
-                      </FormGroup>
-                      <button type="submit" className="btn btn-primary">Submit</button>
-                    </Form>
                 </ModalBody>
             </Modal>
       </div>
