@@ -3,9 +3,11 @@ import { Calendar, momentLocalizer }  from 'react-big-calendar';
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 // import Modal from './popover';
-import Alert from 'react-bootstrap/Alert'
+// import Alert from 'react-bootstrap/Alert'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { Modal, ModalHeader, ModalBody, 
-  // Form, FormGroup, Label, Input, 
+  Form, FormGroup, Label, Input,Button 
 } from 'reactstrap';
 
 
@@ -89,7 +91,8 @@ class calendar extends Component {
     jobDesc: '',
     teamId: '',
     teamLead: '',
-
+    startDate: new Date(),
+    endDate: new Date(),
   };
 
 //   onEventResize = (type, { event, start, end, allDay }) => {
@@ -108,6 +111,11 @@ toggle = () => {
       modal: !prevState.modal
     }));
 }
+handleDateChange = date => {
+  this.setState({
+    startDate: date
+  });
+};
 editToggle = () => {
   this.setState(prevState => ({
     editModal: !prevState.editModal
@@ -163,80 +171,8 @@ editToggle = () => {
   }
 
   newEvent = ({ start, end }) => {
-    const title = window.prompt('New Job card name')
-    if (title)
-      this.setState({
-        events: [
-          ...this.state.events,
-          {
-            start,
-            end,
-            title,
-          },
-        ],
-      })
-    // const {editModal, data} = this.state;
-    // console.log(start, '-->', end, 'event');
-    // this.setState({editModal: !editModal})
-    // if(data){
-    //   console.log(data);
-    //   this.setState({
-    //     events: [
-    //       ...this.state.events,
-    //       {
-    //         start,
-    //         end,
-    //         title: data.title,
-    //         heading: data.heading,
-    //         details: data.details,
-    //         teamId: data.teamId,
-    //         teamLead: data.teamLead, 
-    //       }
-    //     ]
-    //   })
-    // }
-    // let idList = this.state.events.map(a => a.id)
-    // let newId = Math.max(...idList) + 1
-    // let hour = {
-    //   id: newId,
-    //   title: 'New Event',
-    //   allDay: event.slots.length === 1,
-    //   start: event.start,
-    //   end: event.end,
-    // }
-    // this.setState({
-    //   events: this.state.events.concat([hour]),
-    // })
-    // return(
-    //   <Modal isOpen={this.state.editModal} className={this.props.className}>
-    //             <ModalHeader toggle={this.editToggle}>Create a Job</ModalHeader>
-    //             <ModalBody>
-    //                 <Form>
-    //                 <FormGroup>
-    //                     <Label for="jobTitle">Job Title</Label>
-    //                     <Input type="text" name="jobTitle" id="jobTitle" value={jobTitle} onChange={this.onChange} />
-    //                   </FormGroup>
-    //                   <FormGroup>
-    //                     <Label for="jobName">Job Name</Label>
-    //                     <Input type="text" name="jobName" id="jobName" value={jobName} onChange={this.onChange} />
-    //                   </FormGroup>
-    //                   <FormGroup>
-    //                     <Label for="jobDesc">Job Description</Label>
-    //                     <Input type="text" name="jobDesc" id="jobDesc" value={jobDesc} onChange={this.onChange} />
-    //                   </FormGroup>
-    //                   <FormGroup>
-    //                     <Label for="teamId">Team Id</Label>
-    //                     <Input type="text" name="teamId" id="teamId" value={teamId} onChange={this.onChange} />
-    //                   </FormGroup><FormGroup>
-    //                     <Label for="teamLead">Team Lead</Label>
-    //                     <Input type="text" name="teamLead" id="teamLead" value={teamLead} onChange={this.onChange} />
-    //                   </FormGroup>
-    //                   <button type="submit" className="btn btn-primary">Submit</button>
-    //                 </Form>
-    //             </ModalBody>
-    //         </Modal>
-    // )
-
+    this.setState({startDate: start, endDate: end});
+    this.editToggle();
   }
 
   onSelectEvent = (event) => {
@@ -277,9 +213,6 @@ editToggle = () => {
             onDragStart={console.log}
             onSelectEvent={event => this.onSelectEvent(event)}
         />
-        <Alert variant={"success"}>
-          This is a alert—check it out!
-        </Alert>
             <Modal isOpen={this.state.modal} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>{selectedEvent.heading}</ModalHeader>
                 <ModalBody>
@@ -307,6 +240,58 @@ editToggle = () => {
                           <p style={{color: '#0173C7'}}>{selectedEvent.teamLead}</p>
                       </div>
                     </div>
+                </ModalBody>
+            </Modal>
+            <Modal isOpen={this.state.editModal} className={this.props.className}>
+                <ModalHeader toggle={this.editToggle}>Create new Job card</ModalHeader>
+                <ModalBody>
+                    <Form 
+                      // onSubmit={onFormSubmit}
+                    >
+                      <div style={{borderBottom: '2px dashed rgb(239, 239, 239)', marginBottom:'2%'}}>
+                        <FormGroup style={{display:'flex'}}>
+                          <Label style={{flex:1}} for="jobCarNo">Job Card No : </Label>
+                          <Input style={{flex:1}} type="text" name="jobTitle" id="jobTitle" onChange={this.onChange} />
+                        </FormGroup>
+                        <FormGroup style={{display:'flex'}}>
+                          <Label style={{flex:1}} for="jobTitle">Job Title :</Label>
+                          <Input style={{flex:1}} type="text" name="jobTitle" id="jobTitle" onChange={this.onChange} />
+                        </FormGroup>
+                        <FormGroup style={{display:'flex'}}>
+                          <Label style={{flex:1}} for="jobDesc">Job Description :</Label>
+                          <Input style={{flex:1}} type="textarea" name="jobDesc" id="jobDesc" onChange={this.onChange} />
+                        </FormGroup>
+                        <FormGroup style={{display:'flex'}}>
+                          <Label style={{flex:1}} for="endDate">Completion Date :</Label>
+                          <DatePicker
+                            selected={this.state.startDate}
+                            onChange={this.handleDateChange}
+                          />
+                        </FormGroup>
+                      </div>
+                      <div style={{borderBottom: '2px dashed rgb(239, 239, 239)', marginBottom:'2%'}}>
+                        <FormGroup style={{display:'flex'}}>
+                          <Label style={{flex:1}} for="teamId">Team Id</Label>
+                          <Input style={{flex:1}} type="text" name="teamId" id="teamId" onChange={this.onChange} />
+                        </FormGroup>
+                        <FormGroup style={{display:'flex'}}>
+                          <Label style={{flex:1}} for="teamLead">Team Lead</Label>
+                          <Input style={{flex:1}} type="text" name="teamLead" id="teamLead" onChange={this.onChange} />
+                        </FormGroup>
+                      </div>
+                      <div style={{marginBottom:'5%'}}>
+                        <p style={{marginBottom:0}}>Permits :</p>
+                        <FormGroup check>
+                          <Label check>
+                            <Input type="checkbox" /> Applied for Permits
+                          </Label>
+                        </FormGroup>
+                      </div>
+                      {/* <button type="submit" className="btn btn-primary">Submit</button>{' '}
+                      <button type="cancel" className="btn btn-primary">Cancel</button> */}
+                      <Button type="submit" color="primary"  >Submit</Button>{' '}
+                      <Button color="secondary" onClick={this.editToggle} >Cancel</Button>
+                    </Form>
                 </ModalBody>
             </Modal>
       </div>
