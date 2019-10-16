@@ -22,6 +22,7 @@ class calendar extends Component {
   state = {
     events: [
       {
+        id:1,
         start: new Date(),
         end: new Date(),
         title: "JC22522 - Pavement Restoration",
@@ -32,6 +33,7 @@ class calendar extends Component {
         fixed: true,
       },
       {
+        id:2,
         start: new Date(),
         end: new Date(),
         title: "JC22523 - Pavement Building",
@@ -42,6 +44,7 @@ class calendar extends Component {
         fixed: false,
       },
       {
+        id:3,
         start: new Date(),
         end: new Date(),
         title: "JC22524 - Pavement Structuring",
@@ -52,6 +55,7 @@ class calendar extends Component {
         fixed: true,
       },
       {
+        id:4,
         start: new Date(),
         end: new Date(),
         title: "JC22525 - Pathway Restoration",
@@ -62,6 +66,7 @@ class calendar extends Component {
         fixed: false,
       },
       {
+        id:5,
         start: new Date(),
         end: new Date(),
         title: "JC22526 - Building Restoration",
@@ -72,6 +77,7 @@ class calendar extends Component {
         fixed: false,
       },
       {
+        id:6,
         start: new Date(),
         end: new Date(),
         title: "JC22527 - Pavement Restoration",
@@ -95,13 +101,13 @@ class calendar extends Component {
     endDate: new Date(),
   };
 
-//   onEventResize = (type, { event, start, end, allDay }) => {
-//     this.setState(state => {
-//       state.events[0].start = start;
-//       state.events[0].end = end;
-//       return { events: state.events };
-//     });
-//   };
+  onEventResize = (type, { event, start, end, allDay }) => {
+    this.setState(state => {
+      state.events[0].start = start;
+      state.events[0].end = end;
+      return { events: state.events };
+    });
+  };
 
 //   onEventDrop = ({ event, start, end, allDay }) => {
 //     console.log(start);
@@ -155,19 +161,19 @@ editToggle = () => {
   }
 
   resizeEvent = ({ event, start, end }) => {
-    // const { events } = this.state
+    const { events } = this.state
 
-    // const nextEvents = events.map(existingEvent => {
-    //   return existingEvent.id === event.id
-    //     ? { ...existingEvent, start, end }
-    //     : existingEvent
-    // })
+    const nextEvents = events.map(existingEvent => {
+      return existingEvent.id === event.id
+        ? { ...existingEvent, start, end }
+        : existingEvent
+    })
 
-    // this.setState({
-    //   events: nextEvents,
-    // })
+    this.setState({
+      events: nextEvents,
+    })
 
-    // alert(`${event.title} was resized to ${start}-${end}`)
+    alert(`${event.title} was resized to ${start}-${end}`)
   }
 
   newEvent = ({ start, end }) => {
@@ -271,11 +277,11 @@ editToggle = () => {
                       </div>
                       <div style={{borderBottom: '2px dashed rgb(239, 239, 239)', marginBottom:'2%'}}>
                         <FormGroup style={{display:'flex'}}>
-                          <Label style={{flex:1}} for="teamId">Team Id</Label>
+                          <Label style={{flex:1}} for="teamId">Team Id :</Label>
                           <Input style={{flex:1}} type="text" name="teamId" id="teamId" onChange={this.onChange} />
                         </FormGroup>
                         <FormGroup style={{display:'flex'}}>
-                          <Label style={{flex:1}} for="teamLead">Team Lead</Label>
+                          <Label style={{flex:1}} for="teamLead">Team Lead :</Label>
                           <Input style={{flex:1}} type="text" name="teamLead" id="teamLead" onChange={this.onChange} />
                         </FormGroup>
                       </div>
@@ -289,8 +295,10 @@ editToggle = () => {
                       </div>
                       {/* <button type="submit" className="btn btn-primary">Submit</button>{' '}
                       <button type="cancel" className="btn btn-primary">Cancel</button> */}
-                      <Button type="submit" color="primary"  >Submit</Button>{' '}
-                      <Button color="secondary" onClick={this.editToggle} >Cancel</Button>
+                      <div style={{float: 'right'}}>
+                        <Button type="submit" color="primary"  >Submit</Button>{' '}
+                        <Button color="secondary" onClick={this.editToggle} >Cancel</Button>
+                      </div>
                     </Form>
                 </ModalBody>
             </Modal>
