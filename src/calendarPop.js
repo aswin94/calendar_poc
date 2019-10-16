@@ -172,7 +172,7 @@ toggle = () => {
 
   onSelectEvent = ({event}) => {
     // const idx = events.indexOf(event);
-    console.log(event, 'event');
+    // console.log(event, 'event');
     this.setState({selectedEvent: event}, ()=> {
       return(
         <span>

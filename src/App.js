@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import moment from "moment";
 import Cal from './calendar';
-import logo from './logo.jpg';
+import logo from './SEM_Group_logo.gif';
 // import Calpop from './calendarPop';
 // import CalTest from './testCal';
 import {Label, Input, FormGroup} from 'reactstrap';

@@ -7,6 +7,11 @@
           justify-content: center;
 }
 
+.container .sidepanel .logo {
+  padding: 7%;
+  text-align: center;
+}
+
 .container .sidepanel .add-new-card {
   display: flex;
     flex-direction: column;
@@ -326,7 +331,7 @@
   background: #efefef !important;
   border: 0 !important;
   padding: 10px 20px !important;
-  border-radius: 20px !important;
+  border-radius: 6px !important;
 }
 .rbc-btn-group > button:first-child:not(:last-child){
   border-top-right-radius: 0 !important;
@@ -359,6 +364,9 @@
 .modal-content {
   border-radius: 1.3rem !important;
   width: 90% !important;
+}
+.modal-dialog {
+  margin: 9.75rem auto !important;
 }
 
 .modal-header{

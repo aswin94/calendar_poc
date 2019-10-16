@@ -7,8 +7,16 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Modal, ModalHeader, ModalBody, 
-  Form, FormGroup, Label, Input,Button 
+  // Form, FormGroup, Label, Input,Button 
 } from 'reactstrap';
+import { Form, Field } from 'react-final-form';
+import Styles from './formStyle';
+// import {
+//   DatePicker,
+//   MuiPickersUtilsProvider,
+// } from '@material-ui/pickers';
+// import DateFnsUtils from '@date-io/date-fns';
+import ls from 'local-storage';
 
 
 import './calendar.css';
@@ -17,6 +25,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 
 class calendar extends Component {
   state = {
@@ -45,8 +55,8 @@ class calendar extends Component {
       },
       {
         id:3,
-        start: new Date(),
-        end: new Date(),
+        start: '2019-10-07T18:30:00.000Z',
+        end: '2019-10-10T18:30:00.000Z',
         title: "JC22524 - Pavement Structuring",
         heading: "Pavement Structuring",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -56,8 +66,8 @@ class calendar extends Component {
       },
       {
         id:4,
-        start: new Date(),
-        end: new Date(),
+        start: '2019-10-09T18:30:00.000Z',
+        end: '2019-10-11T18:30:00.000Z',
         title: "JC22525 - Pathway Restoration",
         heading: "Pathway Restoration",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -78,8 +88,8 @@ class calendar extends Component {
       },
       {
         id:6,
-        start: new Date(),
-        end: new Date(),
+        start: '2019-10-12T18:30:00.000Z',
+        end: '2019-10-17T18:30:00.000Z',
         title: "JC22527 - Pavement Restoration",
         heading: "Pavement Restoration",
         details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -101,6 +111,48 @@ class calendar extends Component {
     endDate: new Date(),
   };
 
+  // componentDidMount() {
+  //   const {events} = this.state;
+  //   const data = {
+  //     id: 7,
+  //     start: new Date(),
+  //     end: ls.get('end') || [],
+  //     title: ls.get('jobCardNo') || [],
+  //     heading: ls.get('title') || [],
+  //     details: ls.get('description') || [],
+  //     teamId: ls.get('teamId') || [],
+  //     teamLead: ls.get('teamLead') || [],
+  //   };
+  //   const updatedEvents = [...events, data];
+  //   console.log(data, 'data');
+  //   this.setState({events: updatedEvents});
+  // }
+
+  // DatePickerWrapper = (props) => {
+  //   const {
+  //     input: { name, onChange, value, ...restInput },
+  //     meta,
+  //     ...rest
+  //   } = props;
+  //   const showError =
+  //     ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
+  //     meta.touched;
+  
+  //   return (
+  //     <MuiPickersUtilsProvider utils={DateFnsUtils}>
+  //       <DatePicker
+  //         {...rest}
+  //         name={name}
+  //         helperText={showError ? meta.error || meta.submitError : undefined}
+  //         error={showError}
+  //         inputProps={restInput}
+  //         onChange={this.handleDateChange}
+  //         value={value === '' ? null : value}
+  //       />
+  //     </MuiPickersUtilsProvider>
+  //   );
+  // }
+
   onEventResize = (type, { event, start, end, allDay }) => {
     this.setState(state => {
       state.events[0].start = start;
@@ -119,7 +171,7 @@ toggle = () => {
 }
 handleDateChange = date => {
   this.setState({
-    startDate: date
+    endDate: date
   });
 };
 editToggle = () => {
@@ -129,7 +181,6 @@ editToggle = () => {
 }
   moveEvent = ({ event, start, end, allDay: droppedOnAllDaySlot }) => {
     const { events } = this.state
-    console.log(event, start, end, droppedOnAllDaySlot, 'data');
     if(!event.fixed) {
       const idx = events.indexOf(event)
       let allDay = event.allDay
@@ -192,9 +243,27 @@ editToggle = () => {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  onSubmit = async values => {
+    await sleep(300);
+    const data = {
+      id:7,  
+      ...values,
+      end: this.state.endDate,
+      start: this.state.startDate,
+    }
+    // window.alert(JSON.stringify(data, 0, 2));
+    ls.set('data', data);
+    this.reloadEvents();
+    this.editToggle();
+  }
+  reloadEvents = () => {
+    const {events} = this.state;
+    const data = JSON.parse( localStorage.getItem( "data" ) );
+    const updatedEvents = [...events, data];
+    this.setState({events: updatedEvents});
+  }
+
   render() {
-    console.log(new Date(), 'new date');
-    console.log(moment().format(), 'new momdate');
     const {selectedEvent, 
       // jobTitle, jobName, jobDesc, teamId, teamLead, data, events
     } = this.state;
@@ -223,26 +292,26 @@ editToggle = () => {
                 <ModalHeader toggle={this.toggle}>{selectedEvent.heading}</ModalHeader>
                 <ModalBody>
                     <div>
-                      <p style={{color: '#8888', marginBottom:0}}>Job Description</p>
+                      <p style={{color: '#999', marginBottom:0}}>Job Description</p>
                       <p style={{paddingBottom: '2%',borderBottom: '2px dashed #efefef'}}>{selectedEvent.details}</p>
                     </div>
                     <div style={{display:'flex', borderBottom:'2px dashed #efefef', marginBottom:'2%'}}>
                       <div style={{flex:1}}>
-                        <p style={{color: '#8888', marginBottom:0}}>Scheduled Date</p>
-                        <p style={{color: '#0173C7'}}>12/08/2019</p>
+                        <p style={{color: '#999', marginBottom:0}}>Scheduled Date</p>
+                        <p style={{color: '#0173C7'}}>{selectedEvent && selectedEvent.start?moment(selectedEvent.start).format('DD/MM/YYYY'):'12/08/2019'}</p>
                       </div>
                       <div style={{flex:1}}>
-                        <p style={{color: '#8888', marginBottom:0}}>To be completed by</p>
-                        <p style={{color: '#0173C7'}}>20/08/2019</p>
+                        <p style={{color: '#999', marginBottom:0}}>To be completed by</p>
+                        <p style={{color: '#0173C7'}}>{selectedEvent && selectedEvent.end?moment(selectedEvent.end).format('DD/MM/YYYY'):'20/08/2019'}</p>
                       </div>
                     </div>
                     <div style={{display:'flex'}}>
                       <div style={{flex:1}}>
-                          <p style={{color: '#8888', marginBottom:0}}>Team Id</p>
+                          <p style={{color: '#999', marginBottom:0}}>Team Id</p>
                           <p style={{color: '#0173C7'}}>{selectedEvent.teamId}</p>
                       </div>
                       <div style={{flex:1}}>
-                          <p style={{color: '#8888', marginBottom:0}}>Team Lead</p>
+                          <p style={{color: '#999999', marginBottom:0}}>Team Lead</p>
                           <p style={{color: '#0173C7'}}>{selectedEvent.teamLead}</p>
                       </div>
                     </div>
@@ -251,13 +320,10 @@ editToggle = () => {
             <Modal isOpen={this.state.editModal} className={this.props.className}>
                 <ModalHeader toggle={this.editToggle}>Create new Job card</ModalHeader>
                 <ModalBody>
-                    <Form 
-                      // onSubmit={onFormSubmit}
-                    >
-                      <div style={{borderBottom: '2px dashed rgb(239, 239, 239)', marginBottom:'2%'}}>
+                      {/* <div style={{borderBottom: '2px dashed rgb(239, 239, 239)', marginBottom:'2%'}}>
                         <FormGroup style={{display:'flex'}}>
                           <Label style={{flex:1}} for="jobCarNo">Job Card No : </Label>
-                          <Input style={{flex:1}} type="text" name="jobTitle" id="jobTitle" onChange={this.onChange} />
+                          <Input style={{flex:1}} type="text" name="jobCarNo" id="jobCarNo" onChange={this.onChange} />
                         </FormGroup>
                         <FormGroup style={{display:'flex'}}>
                           <Label style={{flex:1}} for="jobTitle">Job Title :</Label>
@@ -295,11 +361,93 @@ editToggle = () => {
                       </div>
                       {/* <button type="submit" className="btn btn-primary">Submit</button>{' '}
                       <button type="cancel" className="btn btn-primary">Cancel</button> */}
-                      <div style={{float: 'right'}}>
+                      {/* <div style={{float: 'right'}}>
                         <Button type="submit" color="primary"  >Submit</Button>{' '}
                         <Button color="secondary" onClick={this.editToggle} >Cancel</Button>
-                      </div>
-                    </Form>
+                      </div> */}
+                      <Styles>
+                        <Form
+                          onSubmit={this.onSubmit}
+                          render={({ handleSubmit, form, submitting, pristine, values }) => (
+                            <form onSubmit={handleSubmit}>
+                              <div>
+                                <div>
+                                  <label>Job Card No :</label>
+                                  <Field
+                                    name="title"
+                                    component="input"
+                                    type="text"
+                                  />
+                                </div>
+                                <div>
+                                  <label>Title :</label>
+                                  <Field
+                                    name="heading"
+                                    component="input"
+                                    type="text"
+                                  />
+                                </div>
+                                <div>
+                                  <label>Description :</label>
+                                  <Field name="details" component="textarea" />
+                                </div>
+                                <div>
+                                  <label>Completion Date :</label>
+                                  <Field
+                                    name="end"
+                                    // component={this.DatePickerWrapper} 
+                                  >
+                                    {props => (
+                                      <DatePicker
+                                        selected={this.state.endDate}
+                                        onChange={this.handleDateChange}
+                                      />
+                                    )}
+                                    </Field>
+                                </div>
+                              </div>
+                              <div>
+                                <div>
+                                  <label>Team ID :</label>
+                                  <Field
+                                    name="teamId"
+                                    component="input"
+                                    type="text"
+                                  />
+                                </div>
+                                <div>
+                                  <label>Team Lead :</label>
+                                  <Field
+                                    name="teamLead"
+                                    component="input"
+                                    type="text"
+                                  />
+                                </div>
+                              </div>
+                              <div>
+                                <p style={{marginBottom:0}}>
+                                  <label>Permits :</label>
+                                </p>
+                                <div>
+                                  <label>Applied for Permits</label>
+                                  <Field name="permits" component="input" type="checkbox" />
+                                </div>
+                              </div>
+                              <div className="buttons">
+                                <button type="submit">
+                                  Submit
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={this.editToggle}
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            </form>
+                          )}
+                        />
+                      </Styles>
                 </ModalBody>
             </Modal>
       </div>
