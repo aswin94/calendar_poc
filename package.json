@@ -18,7 +18,7 @@
     "react-datepicker": "^2.9.6",
     "react-dom": "^16.10.1",
     "react-final-form": "^6.3.0",
-    "react-scripts": "3.1.2",
+    "react-scripts": "5.0.1",
     "react-tiny-popover": "^3.4.5",
     "react-tooltip": "^3.11.1",
     "reactstrap": "^8.0.1",
